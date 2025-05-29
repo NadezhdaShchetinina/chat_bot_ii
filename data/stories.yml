@@ -1,0 +1,66 @@
+version: "3.1"
+
+stories:
+- story: happy path
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_name
+    - action: action_get_profile
+    - intent: ask_abilities
+    - action: utter_abilities
+    - intent: goodbye
+    - action: action_respond_goodbye
+
+
+- story: ask time and date
+  steps:
+    - intent: ask_time
+    - action: action_get_time
+    - intent: ask_date
+    - action: action_get_time
+
+- story: ask weather
+  steps:
+    - intent: ask_weather
+    - action: action_get_weather
+
+- story: search web
+  steps:
+    - intent: search_web
+    - action: action_search_web
+
+- story: tell fact
+  steps:
+    - intent: ask_fact
+    - action: utter_ask_fact_category
+    - intent: inform
+      entities:
+      - category
+    - action: action_tell_fact
+
+- story: calculate
+  steps:
+    - intent: calculate
+    - action: action_calculate
+
+- story: mood analysis
+  steps:
+    - intent: mood_positive
+    - action: action_analyze_mood
+    - intent: mood_negative
+    - action: action_analyze_mood
+    - intent: mood_neutral
+    - action: action_analyze_mood
+
+
+- story: Save name and city
+  steps:
+      - intent: provide_name
+        entities:
+          - user_name
+      - action: action_save_user_data
+      - intent: provide_city
+        entities:
+          - user_city
+      - action: action_save_user_data

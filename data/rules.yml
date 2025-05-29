@@ -1,0 +1,80 @@
+version: "3.1"
+
+rules:
+  - rule: Greet user
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: Goodbye
+    steps:
+      - intent: goodbye
+      - action: action_respond_goodbye
+
+  - rule: Math operations
+    steps:
+      - intent: calculate
+      - action: action_calculate
+
+  - rule: Google search
+    steps:
+      - intent: search_web
+      - slot_was_set:
+          - query: true
+      - action: action_search_web
+
+  - rule: Mood check
+    steps:
+      - intent: mood_check
+      - action: action_analyze_mood
+      - active_loop: null
+
+  - rule: Save user name
+    steps:
+      - intent: provide_name
+      - slot_was_set:
+          - user_name: true
+      - action: action_save_user_data
+
+  - rule: Save user city
+    condition:
+      - active_loop: null
+    steps:
+      - intent: provide_city
+      - slot_was_set:
+          - user_city: true
+      - action: action_save_user_data
+      - action: action_listen
+
+  - rule: Time request
+    steps:
+      - intent: ask_time
+      - action: action_get_time
+
+
+
+  - rule: Start conversation
+    conversation_start: true
+    steps:
+      - action: action_check_saved_data
+      - active_loop: null
+
+  - rule: Ask name
+    steps:
+      - intent: ask_name
+      - action: action_get_profile
+
+  - rule: Ask city
+    steps:
+      - intent: ask_city
+      - action: action_get_profile
+
+  - rule: Respond to how are you
+    steps:
+      - intent: ask_how_are_you
+      - action: utter_how_are_you
+
+  - rule: Respond to abilities
+    steps:
+      - intent: ask_abilities
+      - action: utter_abilities
